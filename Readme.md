@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Ekaterina Bazhenova](https://up.htmlacademy.ru/javascript/20/user/1278965).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Лепёшкин] (https://htmlacademy.ru/profile/id144641).
 
 ---
 
