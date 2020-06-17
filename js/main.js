@@ -4,6 +4,9 @@ var COUNT = 8;
 var INTO = 'Enter';
 var PIN_WIDTH = 50;
 var PIN_HEIGHT = 70;
+var PIN_LEFT = 570;
+var PIN_TOP = 375;
+var PIN_SIZE = 65;
 
 var adverts = [];
 
@@ -19,7 +22,7 @@ var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 
 var urlPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-var typeTranslate = {'palace': {ru: 'дворец'}, 'flat': {ru: 'квартира'}, 'house': {ru: 'дом'}, 'bungalo': {ru: 'бунгало'}};
+var typeTranslate = {'palace': {ru: 'дворец', min: 0}, 'flat': {ru: 'квартира'}, 'house': {ru: 'дом'}, 'bungalo': {ru: 'бунгало'}};
 
 var shuffleArray = function (a) {
   var j;
@@ -154,6 +157,22 @@ var renderPins = function () {
 // map.insertBefore(renderCard(adverts[0]), mapFilters);
 
 var form = document.querySelector('.ad-form');
+
+var showForm = function () {
+  form.classList.remove('ad-form--disabled');
+};
+
+var address = document.querySelector('input[name=address]');
+
+var renderAddressNoActive = function () {
+  address.value = Math.floor(PIN_LEFT + (PIN_SIZE / 2)) + ',' + Math.floor(PIN_TOP + (PIN_SIZE / 2));
+};
+renderAddressNoActive();
+
+var renderAddressActive = function () {
+  address.value = Math.floor(PIN_LEFT + (PIN_SIZE / 2)) + ',' + (PIN_TOP + PIN_SIZE);
+};
+
 var formFields = document.querySelectorAll('fieldset, .map__filter');
 
 var setFormState = function () {
@@ -167,17 +186,25 @@ var mainPin = document.querySelector('.map__pin--main');
 
 var onMainPinMouseDown = function (evt) {
   if (evt.button === 0) {
-    map.classList.remove('map--faded'); // уже была эта строчка
+    map.classList.remove('map--faded');
     setFormState();
     renderPins();
+    showForm();
+    renderAddressActive();
     mainPin.removeEventListener('mousedown', onMainPinMouseDown);
   }
 };
 
 mainPin.addEventListener('mousedown', onMainPinMouseDown);
 
-mainPin.addEventListener('keydown', function (evt) {
+var onMainPinKeyDown = function (evt) {
   if (evt.key === INTO) {
-    map.classList.remove('map--faded'); // уже была эта строчка, загнать в переменную
+    map.classList.remove('map--faded');
+    setFormState();
+    renderPins();
+    showForm();
+    mainPin.removeEventListener('keydown', onMainPinKeyDown);
   }
-});
+};
+
+mainPin.addEventListener('keydown', onMainPinKeyDown);
