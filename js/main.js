@@ -22,7 +22,9 @@ var features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditio
 
 var urlPhotos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
-var typeTranslate = {'palace': {ru: 'дворец', min: 0}, 'flat': {ru: 'квартира'}, 'house': {ru: 'дом'}, 'bungalo': {ru: 'бунгало'}};
+var typeTranslate = {'palace': {ru: 'дворец', min: 10000}, 'flat': {ru: 'квартира', min: 1000}, 'house': {ru: 'дом', min: 5000}, 'bungalo': {ru: 'бунгало', min: 0}};
+
+var roomPersons = {'1': ['1'], '2': ['1', '2'], '3': ['1', '2', '3'], '100': ['0']};
 
 var shuffleArray = function (a) {
   var j;
@@ -208,3 +210,51 @@ var onMainPinKeyDown = function (evt) {
 };
 
 mainPin.addEventListener('keydown', onMainPinKeyDown);
+
+// Комнаты и Гости
+
+var roomNumber = form.querySelector('#room_number');
+var capacity = form.querySelector('#capacity');
+
+var onRoomNumberChange = function () {
+  if (capacity.options.length > 0) {
+    [].forEach.call(capacity.options, function (item) {
+      var persons = roomPersons[roomNumber.value];
+      var isHidden = !(persons.indexOf(item.value) >= 0);
+
+      item.selected = persons[0] === item.value;
+      item.hidden = isHidden;
+      item.disabled = isHidden;
+    });
+  }
+};
+onRoomNumberChange();
+
+roomNumber.addEventListener('change', onRoomNumberChange);
+
+// Время заезда
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+timeIn.addEventListener('change', function (evt) {
+  timeIn.value = evt.target.value;
+  timeOut.value = evt.target.value;
+});
+
+timeOut.addEventListener('change', function (evt) {
+  timeIn.value = evt.target.value;
+  timeOut.value = evt.target.value;
+});
+
+// Цены и жильё
+
+var price = document.querySelector('#price');
+var type = document.querySelector('#type');
+
+var onTypeChangeHandler = function (evt) {
+  var minPrice = typeTranslate[evt.target.value].min;
+  price.placeholder = minPrice;
+  price.min = minPrice;
+};
+type.addEventListener('change', onTypeChangeHandler);
