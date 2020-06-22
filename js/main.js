@@ -238,13 +238,11 @@ var timeIn = document.querySelector('#timein');
 var timeOut = document.querySelector('#timeout');
 
 timeIn.addEventListener('change', function (evt) {
-  timeIn.value = evt.target.value;
   timeOut.value = evt.target.value;
 });
 
 timeOut.addEventListener('change', function (evt) {
   timeIn.value = evt.target.value;
-  timeOut.value = evt.target.value;
 });
 
 // Цены и жильё
