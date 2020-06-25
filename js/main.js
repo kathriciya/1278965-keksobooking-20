@@ -5,7 +5,7 @@
   var INTO = 'Enter';
 
   window.main = {
-    OUT: 'Escape',
-    INTO: 'Enter'
+    OUT: OUT,
+    INTO: INTO
   };
 })();

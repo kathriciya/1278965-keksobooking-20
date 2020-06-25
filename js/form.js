@@ -100,9 +100,9 @@
   type.addEventListener('change', onTypeChangeHandler);
 
   window.form = {
-    showForm: showForm(),
-    setFormState: setFormState(),
-    renderAddressActive: renderAddressActive(),
+    show: showForm,
+    set: setFormState,
+    activate: renderAddressActive,
     typeTranslate: typeTranslate
   };
 })();

@@ -55,10 +55,10 @@
         }
       });
     }
+    return adverts;
   };
 
   window.data = {
-    addAdverts: addAdverts(),
-    adverts: adverts,
+    adverts: addAdverts()
   };
 })();

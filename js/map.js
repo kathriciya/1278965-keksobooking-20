@@ -8,10 +8,10 @@
   var onMainPinMouseDown = function (evt) {
     if (evt.button === 0) {
       map.classList.remove('map--faded');
-      window.form.setFormState();
-      window.pin.renderPins();
-      window.form.showForm();
-      window.form.renderAddressActive();
+      window.form.set();
+      window.pin.render();
+      window.form.show();
+      window.form.activate();
       mainPin.removeEventListener('mousedown', onMainPinMouseDown);
     }
   };
@@ -21,9 +21,9 @@
   var onMainPinKeyDown = function (evt) {
     if (evt.key === window.main.INTO) {
       map.classList.remove('map--faded');
-      window.form.setFormState();
-      window.pin.renderPins();
-      window.form.showForm();
+      window.form.set();
+      window.pin.render();
+      window.form.show();
       mainPin.removeEventListener('keydown', onMainPinKeyDown);
     }
   };

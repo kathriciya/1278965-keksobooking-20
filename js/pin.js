@@ -20,8 +20,8 @@
     // Событие на пине
 
     pinElement.addEventListener('click', function () {
-      window.card.removeCard();
-      window.card.renderCard(pin);
+      window.card.remove();
+      window.card.render(pin);
     });
 
     return pinElement;
@@ -37,7 +37,6 @@
   };
 
   window.pin = {
-    renderPin: renderPin(),
-    renderPins: renderPins()
+    render: renderPins
   };
 })();
