@@ -29,5 +29,9 @@
   };
   mainPin.addEventListener('keydown', onMainPinKeyDown);
 
-  window.map = map;
+  window.map = {
+    field: map,
+    main: mainPin,
+    onMainPinMouseDown: onMainPinMouseDown
+  };
 })();
