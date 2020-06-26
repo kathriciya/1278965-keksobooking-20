@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var mapFilters = window.map.querySelector('.map__filters-container');
+  var mapFilters = window.map.field.querySelector('.map__filters-container');
 
   var removeCard = function () {
     var popup = window.map.querySelector('.popup');
@@ -85,7 +85,7 @@
 
     document.addEventListener('keydown', onCardEscClick);
 
-    window.map.insertBefore(cardElement, mapFilters);
+    window.map.field.insertBefore(cardElement, mapFilters);
   };
 
   window.card = {
