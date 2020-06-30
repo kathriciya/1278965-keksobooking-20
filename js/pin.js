@@ -20,6 +20,8 @@
     // Событие на пине
 
     pinElement.addEventListener('click', function () {
+    // eckjdbt
+      pinElement.classList.add('map__pin--active');
       window.card.remove();
       window.card.render(pin);
     });
@@ -27,11 +29,11 @@
     return pinElement;
   };
 
-  var renderPins = function () {
+  var renderPins = function (offers) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < window.data.adverts.length; i++) {
+    for (var i = 0; i < offers.length; i++) {
 
-      fragment.appendChild(renderPin(window.data.adverts[i]));
+      fragment.appendChild(renderPin(offers[i]));
     }
     similarListElement.appendChild(fragment);
   };
