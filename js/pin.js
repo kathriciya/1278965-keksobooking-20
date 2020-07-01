@@ -20,10 +20,14 @@
     // Событие на пине
 
     pinElement.addEventListener('click', function () {
-    // eckjdbt
-      pinElement.classList.add('map__pin--active');
-      window.card.remove();
-      window.card.render(pin);
+      var activePin = window.map.field.querySelector('.map__pin--active');
+      if (activePin !== null) {
+        activePin.classList.remove('map__pin--active');
+      } else {
+        pinElement.classList.add('map__pin--active');
+        window.card.remove();
+        window.card.render(pin);
+      }
     });
 
     return pinElement;
