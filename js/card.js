@@ -4,7 +4,7 @@
   var mapFilters = window.map.field.querySelector('.map__filters-container');
 
   var removeCard = function () {
-    var popup = window.map.querySelector('.popup');
+    var popup = window.map.field.querySelector('.popup');
 
     if (popup !== null) {
       popup.remove();
