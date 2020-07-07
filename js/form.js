@@ -1,9 +1,21 @@
 'use strict';
 
 (function () {
-  var PIN_LEFT = 570;
-  var PIN_TOP = 375;
-  var PIN_SIZE = 65;
+  var PIN_WIDTH = 65;
+
+  var map = window.map.city;
+  var form = window.map.form;
+  var pin = window.map.pin;
+
+  var address = document.querySelector('input[name=address]');
+  var formFields = document.querySelectorAll('fieldset, .map__filter');
+  var roomNumber = form.querySelector('#room_number');
+  var capacity = form.querySelector('#capacity');
+  var timeIn = document.querySelector('#timein');
+  var timeOut = document.querySelector('#timeout');
+  var price = document.querySelector('#price');
+  var type = document.querySelector('#type');
+  var resetButtonForm = form.querySelector('.ad-form__reset');
 
   var roomPersons = {
     '1': ['1'],
@@ -27,24 +39,14 @@
     }
   };
 
-  var form = document.querySelector('.ad-form');
-
-  var showForm = function () {
-    form.classList.remove('ad-form--disabled');
+  var setAddress = function () {
+    if (map.classList.contains('map--faded')) {
+      address.value = Math.floor(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.floor(pin.offsetTop + (PIN_WIDTH / 2));
+    } else {
+      address.value = Math.floor(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.floor(pin.offsetTop + PIN_WIDTH);
+    }
   };
-
-  var address = document.querySelector('input[name=address]');
-
-  var renderAddressNoActive = function () {
-    address.value = Math.floor(PIN_LEFT + (PIN_SIZE / 2)) + ',' + Math.floor(PIN_TOP + (PIN_SIZE / 2));
-  };
-  renderAddressNoActive();
-
-  var renderAddressActive = function () {
-    address.value = Math.floor(PIN_LEFT + (PIN_SIZE / 2)) + ',' + (PIN_TOP + PIN_SIZE);
-  };
-
-  var formFields = document.querySelectorAll('fieldset, .map__filter');
+  setAddress();
 
   var setFormState = function () {
     for (var i = 0; i < formFields.length; i++) {
@@ -52,11 +54,6 @@
     }
   };
   setFormState();
-
-  // Комнаты и Гости
-
-  var roomNumber = form.querySelector('#room_number');
-  var capacity = form.querySelector('#capacity');
 
   var onRoomNumberChange = function () {
     if (capacity.options.length > 0) {
@@ -74,11 +71,6 @@
 
   roomNumber.addEventListener('change', onRoomNumberChange);
 
-  // Время заезда
-
-  var timeIn = document.querySelector('#timein');
-  var timeOut = document.querySelector('#timeout');
-
   timeIn.addEventListener('change', function (evt) {
     timeOut.value = evt.target.value;
   });
@@ -87,11 +79,6 @@
     timeIn.value = evt.target.value;
   });
 
-  // Цены и жильё
-
-  var price = document.querySelector('#price');
-  var type = document.querySelector('#type');
-
   var onTypeChangeHandler = function (evt) {
     var minPrice = typeTranslate[evt.target.value].min;
     price.placeholder = minPrice;
@@ -99,10 +86,38 @@
   };
   type.addEventListener('change', onTypeChangeHandler);
 
+  var onSuccess = function () {
+    window.main.showSuccessMessage();
+    form.reset();
+    window.map.deactivate();
+    // все заполненные поля возвращаются в изначальное состояние, в том числе фильтры;
+    window.card.remove();
+    window.pin.remove();
+  };
+
+  var onError = function () {
+    window.main.showErrorMessage();
+  };
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault(evt);
+    window.backend.save(onSuccess, onError, new FormData(form));
+  });
+
+  var onButtonReset = function (evt) {
+    evt.preventDefault();
+    form.reset();
+    window.map.deactivate();
+    // все заполненные поля возвращаются в изначальное состояние, в том числе фильтры;
+    window.card.remove();
+    window.pin.remove();
+  };
+
+  resetButtonForm.addEventListener('click', onButtonReset);
+
   window.form = {
-    show: showForm,
-    set: setFormState,
-    activate: renderAddressActive,
+    setState: setFormState,
+    setAddress: setAddress,
     typeTranslate: typeTranslate
   };
 })();

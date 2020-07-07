@@ -2,18 +2,44 @@
 
 (function () {
   var MAX_COUNT = 5;
+
   var map = document.querySelector('.map');
+  var pin = document.querySelector('.map__pin--main');
+  var form = document.querySelector('.ad-form');
+
   var offers = [];
 
 
-  var mainPin = document.querySelector('.map__pin--main');
+  var Pin = {
+    LEFT: pin.offsetLeft,
+    TOP: pin.offsetTop
+  };
+
+  var setDefeultPositon = function () {
+    pin.style.top = Pin.TOP + 'px';
+    pin.style.left = Pin.LEFT + 'px';
+  };
+
+  var toggleClassForm = function () {
+    form.classList.toggle('ad-form--disabled');
+  };
 
   var activate = function () {
     map.classList.remove('map--faded');
-    window.form.set();
-    window.form.show();
-    window.form.activate();
-    mainPin.removeEventListener('mousedown', onMainPinMouseDown);
+    window.form.setState();
+    toggleClassForm();
+    window.form.setAddress();
+    pin.removeEventListener('mousedown', onPinMouseDown);
+  };
+
+  var deactivate = function () {
+    map.classList.add('map--faded');
+    window.form.setState();
+    toggleClassForm();
+    setDefeultPositon();
+    window.form.setAddress();
+    pin.addEventListener('mousedown', onPinMouseDown);
+    pin.addEventListener('keydown', onPinKeyDown);
   };
 
   var onSuccess = function (data) {
@@ -24,28 +50,27 @@
 
   var onError = function () {};
 
-  var onMainPinMouseDown = function (evt) {
+  var onPinMouseDown = function (evt) {
     if (evt.button === 0) {
       window.backend.load(onSuccess, onError);
     }
   };
 
-  mainPin.addEventListener('mousedown', onMainPinMouseDown);
+  pin.addEventListener('mousedown', onPinMouseDown);
 
-  var onMainPinKeyDown = function (evt) {
+  var onPinKeyDown = function (evt) {
     if (evt.key === window.main.INTO) {
-      map.classList.remove('map--faded');
-      window.form.set();
-      window.pin.render();
-      window.form.show();
-      mainPin.removeEventListener('keydown', onMainPinKeyDown);
+      window.backend.load(onSuccess, onError);
+      pin.removeEventListener('keydown', onPinKeyDown);
     }
   };
-  mainPin.addEventListener('keydown', onMainPinKeyDown);
+  pin.addEventListener('keydown', onPinKeyDown);
 
   window.map = {
-    field: map,
-    main: mainPin,
-    onMainPinMouseDown: onMainPinMouseDown
+    city: map,
+    form: form,
+    pin: pin,
+    onPinMouseDown: onPinMouseDown,
+    deactivate: deactivate
   };
 })();

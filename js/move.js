@@ -13,13 +13,12 @@
 
   var Pin = {
     WIDTH: 65,
-    CENTER: 65 / 2,
     END: 87
   };
 
-  var setMainPinPosition = function (shift) {
-    var y = window.map.main.offsetTop - shift.y;
-    var x = window.map.main.offsetLeft - shift.x;
+  var setPinPosition = function (shift) {
+    var y = window.map.pin.offsetTop - shift.y;
+    var x = window.map.pin.offsetLeft - shift.x;
 
     if (x < X.MIN) {
       x = 1;
@@ -28,15 +27,15 @@
     }
 
     if (y < Y.MIN - Pin.WIDTH) {
-      y = Y.MIN - Math.floor(Pin.END - Pin.CENTER);
+      y = Y.MIN - Math.floor(Pin.END - (Pin.WIDTH / 2));
     } else if (y > Y.MAX - Pin.WIDTH) {
-      y = Y.MAX - Math.floor(Pin.END - Pin.CENTER);
+      y = Y.MAX - Math.floor(Pin.END - (Pin.WIDTH / 2));
     }
-    window.map.main.style.top = y + 'px';
-    window.map.main.style.left = x + 'px';
+    window.map.pin.style.top = y + 'px';
+    window.map.pin.style.left = x + 'px';
   };
 
-  window.map.main.addEventListener('mousedown', function (evt) {
+  window.map.pin.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
     var startCoords = {
@@ -57,16 +56,14 @@
           x: moveEvt.clientX,
           y: moveEvt.clientY
         };
-        setMainPinPosition(shift);
+        setPinPosition(shift);
       }
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      if (window.map.field.classList.contains('map--faded')) {
-        window.map.onMainPinMouseDown(upEvt);
-      } else {
-        window.form.activate();
+      if (!window.map.city.classList.contains('map--faded')) {
+        window.form.setAddress();
       }
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);

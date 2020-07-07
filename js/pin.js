@@ -9,6 +9,15 @@
     .content
     .querySelector('.map__pin');
 
+
+  var removePins = function () {
+    var pins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    pins.forEach(function (item) {
+      item.remove();
+    });
+  };
+
   var renderPin = function (pin) {
     var pinElement = pinTemplate.cloneNode(true);
     var img = pinElement.querySelector('img');
@@ -20,7 +29,7 @@
     // Событие на пине
 
     pinElement.addEventListener('click', function () {
-      var activePin = window.map.field.querySelector('.map__pin--active');
+      var activePin = window.map.city.querySelector('.map__pin--active');
       if (activePin !== null) {
         activePin.classList.remove('map__pin--active');
       } else {
@@ -43,6 +52,7 @@
   };
 
   window.pin = {
-    render: renderPins
+    render: renderPins,
+    remove: removePins
   };
 })();
