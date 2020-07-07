@@ -1,10 +1,10 @@
 'use strict';
 
 (function () {
-  var mapFilters = window.map.field.querySelector('.map__filters-container');
+  var mapFilters = window.map.city.querySelector('.map__filters-container');
 
   var removeCard = function () {
-    var popup = window.map.field.querySelector('.popup');
+    var popup = window.map.city.querySelector('.popup');
 
     if (popup !== null) {
       popup.remove();
@@ -85,7 +85,7 @@
 
     document.addEventListener('keydown', onCardEscClick);
 
-    window.map.field.insertBefore(cardElement, mapFilters);
+    window.map.city.insertBefore(cardElement, mapFilters);
   };
 
   window.card = {
