@@ -48,7 +48,9 @@
     activate();
   };
 
-  var onError = function () {};
+  var onError = function () {
+    window.main.showErrorMessage();
+  };
 
   var onPinMouseDown = function (evt) {
     if (evt.button === 0) {
@@ -67,10 +69,14 @@
   pin.addEventListener('keydown', onPinKeyDown);
 
   window.map = {
+    MAX_COUNT: MAX_COUNT,
     city: map,
     form: form,
     pin: pin,
     onPinMouseDown: onPinMouseDown,
-    deactivate: deactivate
+    deactivate: deactivate,
+    offers: function () {
+      return offers;
+    }
   };
 })();

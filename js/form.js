@@ -90,7 +90,7 @@
     window.main.showSuccessMessage();
     form.reset();
     window.map.deactivate();
-    // все заполненные поля возвращаются в изначальное состояние, в том числе фильтры;
+    window.card.mapFilter.reset();
     window.card.remove();
     window.pin.remove();
   };
@@ -108,7 +108,7 @@
     evt.preventDefault();
     form.reset();
     window.map.deactivate();
-    // все заполненные поля возвращаются в изначальное состояние, в том числе фильтры;
+    window.card.mapFilter.reset();
     window.card.remove();
     window.pin.remove();
   };
