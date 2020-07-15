@@ -26,8 +26,6 @@
     pinElement.style.left = pin.location.x - PIN_WIDTH / 2 + 'px';
     pinElement.style.top = pin.location.y - PIN_HEIGHT + 'px';
 
-    // Событие на пине
-
     pinElement.addEventListener('click', function () {
       var activePin = window.map.city.querySelector('.map__pin--active');
       if (activePin !== null) {

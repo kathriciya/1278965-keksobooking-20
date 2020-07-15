@@ -3,6 +3,7 @@
 (function () {
   var OUT = 'Escape';
   var INTO = 'Enter';
+
   var main = document.querySelector('main');
 
   var successTemplate = document.querySelector('#success')
@@ -30,7 +31,14 @@
     document.addEventListener('click', onSuccessMessageClick);
   };
 
-  // ERROR
+  var hideErrorMessage = function () {
+    var error = document.querySelector('.error');
+    if (error !== null) {
+      error.remove();
+      document.removeEventListener('keydown', onErrorMessageEscKeyDown);
+      document.removeEventListener('click', onErrorMessageClick);
+    }
+  };
 
   var showErrorMessage = function () {
     var errorMessage = errorTemplate.cloneNode(true);
@@ -42,18 +50,6 @@
     document.addEventListener('click', onErrorMessageClick);
     errorButton.addEventListener('click', onErrorButtonClick);
   };
-
-  var hideErrorMessage = function () {
-    var error = document.querySelector('.error');
-    if (error !== null) {
-      error.remove();
-      document.removeEventListener('keydown', onErrorMessageEscKeyDown);
-      document.removeEventListener('click', onErrorMessageClick);
-    }
-  };
-
-
-  // Esc & Click
 
   var onSuccessMessageEscKeyDown = function (evt) {
     if (evt.key === OUT) {

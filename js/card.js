@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var mapFilters = window.map.city.querySelector('.map__filters-container');
+  var mapFilters = document.querySelector('.map__filters-container');
 
   var removeCard = function () {
     var popup = window.map.city.querySelector('.popup');
@@ -52,7 +52,7 @@
     var popupFeatures = cardElement.querySelector('.popup__features');
     var featureNodes = popupFeatures.querySelectorAll('.popup__feature');
     for (var i = 0; i < featureNodes.length; i++) {
-      if (card.offer.features.indexOf(featureNodes[i].classList[1].replace('popup__feature--', '')) >= 0) {
+      if (card.offer.features.indexOf(featureNodes[i].classList[1].replace('popup__feature--', '')) < 0) {
         featureNodes[i].remove();
       }
     }
@@ -77,8 +77,6 @@
     var popupAvatar = cardElement.querySelector('.popup__avatar');
     popupAvatar.src = card.author.avatar;
 
-    // событие
-
     var popupClose = cardElement.querySelector('.popup__close');
 
     popupClose.addEventListener('click', onCardCloseClick);
@@ -90,6 +88,7 @@
 
   window.card = {
     render: renderCard,
-    remove: removeCard
+    remove: removeCard,
+    mapFilters: mapFilters
   };
 })();
