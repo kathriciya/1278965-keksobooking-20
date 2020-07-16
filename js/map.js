@@ -42,8 +42,12 @@
     pin.addEventListener('keydown', onPinKeyDown);
   };
 
-  var onSuccess = function (data) {
-    offers = data.slice();
+  var onSuccess = function (pins) {
+    offers = pins.map(function (data) {
+      if (data.offer) {
+        return data;
+      }
+    });
     window.pin.render(offers.slice(0, MAX_COUNT));
     activate();
   };
