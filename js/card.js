@@ -33,42 +33,42 @@
 
     var popupTitle = cardElement.querySelector('.popup__title');
     if (card.offer.title) {
-      popupTitle.textContent;
+      popupTitle.textContent = card.offer.title;
     } else {
       popupTitle.remove();
     }
 
     var popupTextAddress = cardElement.querySelector('.popup__text--address');
     if (card.offer.address) {
-      popupTextAddress.textContent;
+      popupTextAddress.textContent = card.offer.address;
     } else {
        popupTextAddress.remove();
     }
 
     var popupTextPrice = cardElement.querySelector('.popup__text--price');
-    if (card.offer.price + '₽/ночь') {
-      popupTextPrice.textContent;
+    if (card.offer.price) {
+      popupTextPrice.textContent = card.offer.price + '₽/ночь';
     } else {
       popupTextPrice.remove();
     }
 
     var popupType = cardElement.querySelector('.popup__type');
-    if (window.form.housinTypes[card.offer.type].ru) {
-      popupType.textContent;
+    if (card.offer.type) {
+      popupType.textContent = window.form.housinTypes[card.offer.type].ru;
     } else {
        popupType.remove();
     }
 
     var popupTextCapacity = cardElement.querySelector('.popup__text--capacity');
-    if (card.offer.rooms + 'комнаты для' + card.offer.guests + 'гостей') {
-      popupTextCapacity.textContent;
+    if (card.offer.rooms && card.offer.guests) {
+      popupTextCapacity.textContent = card.offer.rooms + 'комнаты для' + card.offer.guests + 'гостей';
     } else {
        popupTextCapacity.remove();
     }
 
     var popupTextTime = cardElement.querySelector('.popup__text--time');
-    if ('заезд после' + card.offer.checkin + 'выезд до' + card.offer.checkout) {
-      popupTextTime.textContent;
+    if (card.offer.checkin && card.offer.checkout) {
+      popupTextTime.textContent = 'заезд после' + card.offer.checkin + 'выезд до' + card.offer.checkout;
     } else {
       popupTextTime.remove();
     }
@@ -83,7 +83,7 @@
 
     var popupDescription = cardElement.querySelector('.popup__description');
     if (card.offer.description) {
-      popupDescription.textContent;
+      popupDescription.textContent = card.offer.description;
     } else {
       popupDescription.remove();
     }
