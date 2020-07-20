@@ -32,22 +32,46 @@
     var cardElement = cardTemplate.cloneNode(true);
 
     var popupTitle = cardElement.querySelector('.popup__title');
-    popupTitle.textContent = card.offer.title;
+    if (card.offer.title) {
+      popupTitle.textContent = card.offer.title;
+    } else {
+      popupTitle.remove();
+    }
 
     var popupTextAddress = cardElement.querySelector('.popup__text--address');
-    popupTextAddress.textContent = card.offer.address;
+    if (card.offer.address) {
+      popupTextAddress.textContent = card.offer.address;
+    } else {
+       popupTextAddress.remove();
+    }
 
     var popupTextPrice = cardElement.querySelector('.popup__text--price');
-    popupTextPrice.textContent = card.offer.price + '₽/ночь';
+    if (card.offer.price) {
+      popupTextPrice.textContent = card.offer.price + '₽/ночь';
+    } else {
+      popupTextPrice.remove();
+    }
 
     var popupType = cardElement.querySelector('.popup__type');
-    popupType.textContent = window.form.typeTranslate[card.offer.type].ru;
+    if (card.offer.type) {
+      popupType.textContent = window.form.housinTypes[card.offer.type].ru;
+    } else {
+       popupType.remove();
+    }
 
     var popupTextCapacity = cardElement.querySelector('.popup__text--capacity');
-    popupTextCapacity.textContent = card.offer.rooms + 'комнаты для' + card.offer.guests + 'гостей';
+    if (card.offer.rooms && card.offer.guests) {
+      popupTextCapacity.textContent = card.offer.rooms + 'комнаты для' + card.offer.guests + 'гостей';
+    } else {
+       popupTextCapacity.remove();
+    }
 
     var popupTextTime = cardElement.querySelector('.popup__text--time');
-    popupTextTime.textContent = 'заезд после' + card.offer.checkin + 'выезд до' + card.offer.checkout;
+    if (card.offer.checkin && card.offer.checkout) {
+      popupTextTime.textContent = 'заезд после' + card.offer.checkin + 'выезд до' + card.offer.checkout;
+    } else {
+      popupTextTime.remove();
+    }
 
     var popupFeatures = cardElement.querySelector('.popup__features');
     var featureNodes = popupFeatures.querySelectorAll('.popup__feature');
@@ -58,7 +82,11 @@
     }
 
     var popupDescription = cardElement.querySelector('.popup__description');
-    popupDescription.textContent = card.offer.description;
+    if (card.offer.description) {
+      popupDescription.textContent = card.offer.description;
+    } else {
+      popupDescription.remove();
+    }
 
     var popupPhotos = cardElement.querySelector('.popup__photos');
     var photo = popupPhotos.querySelector('img');

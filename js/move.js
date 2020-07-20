@@ -13,7 +13,7 @@
 
   var Pin = {
     WIDTH: 65,
-    END: 87
+    HEIGHT: 87
   };
 
   var setPinPosition = function (shift) {
@@ -27,9 +27,9 @@
     }
 
     if (y < Y.MIN - Pin.WIDTH) {
-      y = Y.MIN - Math.floor(Pin.END - (Pin.WIDTH / 2));
+      y = Y.MIN - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
     } else if (y > Y.MAX - Pin.WIDTH) {
-      y = Y.MAX - Math.floor(Pin.END - (Pin.WIDTH / 2));
+      y = Y.MAX - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
     }
     window.map.pin.style.top = y + 'px';
     window.map.pin.style.left = x + 'px';
