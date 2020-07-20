@@ -79,9 +79,6 @@
       item.remove();
     });
 
-    // if (card.offer.features.indexOf(featureNodes[i].classList[1].replace('popup__feature--', '')) < 0) {
-    //   featureNodes[i].remove();
-
     var popupDescription = cardElement.querySelector('.popup__description');
     if (card.offer.description) {
       popupDescription.textContent = card.offer.description;
