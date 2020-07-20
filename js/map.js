@@ -4,7 +4,7 @@
   var MAX_COUNT = 5;
 
   var map = document.querySelector('.map');
-  var pin = document.querySelector('.map__pin--main');
+  var pin = map.querySelector('.map__pin--main');
   var form = document.querySelector('.ad-form');
 
   var offers = [];
@@ -43,10 +43,8 @@
   };
 
   var onSuccess = function (pins) {
-    offers = pins.map(function (data) {
-      if (data.offer) {
-        return data;
-      }
+    offers = pins.slice().filter(function (item) {
+      return Object.keys(item.offer).length !== 0;
     });
     window.pin.render(offers.slice(0, MAX_COUNT));
     activate();

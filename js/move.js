@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
-  var Y = {
+  var outlineY = {
     MIN: 130,
     MAX: 630
   };
 
-  var X = {
+  var outlineX = {
     MIN: 1,
     MAX: 1200
   };
@@ -20,16 +20,16 @@
     var y = window.map.pin.offsetTop - shift.y;
     var x = window.map.pin.offsetLeft - shift.x;
 
-    if (x < X.MIN) {
+    if (x < outlineX.MIN) {
       x = 1;
-    } else if (x > X.MAX - Pin.WIDTH) {
-      x = X.MAX - Pin.WIDTH;
+    } else if (x > outlineX.MAX - Pin.WIDTH) {
+      x = outlineX.MAX - Pin.WIDTH;
     }
 
-    if (y < Y.MIN - Pin.WIDTH) {
-      y = Y.MIN - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
-    } else if (y > Y.MAX - Pin.WIDTH) {
-      y = Y.MAX - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
+    if (y < outlineY.MIN - Pin.WIDTH) {
+      y = outlineY.MIN - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
+    } else if (y > outlineY.MAX - Pin.WIDTH) {
+      y = outlineY.MAX - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
     }
     window.map.pin.style.top = y + 'px';
     window.map.pin.style.left = x + 'px';

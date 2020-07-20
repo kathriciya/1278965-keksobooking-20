@@ -12,10 +12,10 @@
   var formFields = document.querySelectorAll('fieldset, .map__filter');
   var numberRooms = form.querySelector('#room_number');
   var capacity = form.querySelector('#capacity');
-  var timeIn = document.querySelector('#timein');
-  var timeOut = document.querySelector('#timeout');
-  var price = document.querySelector('#price');
-  var type = document.querySelector('#type');
+  var timeIn = form.querySelector('#timein');
+  var timeOut = form.querySelector('#timeout');
+  var price = form.querySelector('#price');
+  var type = form.querySelector('#type');
   var resetButtonForm = form.querySelector('.ad-form__reset');
 
   var roomPersons = {
@@ -50,9 +50,9 @@
   setAddress();
 
   var setFormState = function () {
-    for (var i = 0; i < formFields.length; i++) {
-      formFields[i].disabled = !formFields[i].disabled;
-    }
+    formFields.forEach(function (item) {
+      item.disabled = !item.disabled;
+    });
   };
   setFormState();
 

@@ -42,7 +42,7 @@
     if (card.offer.address) {
       popupTextAddress.textContent = card.offer.address;
     } else {
-       popupTextAddress.remove();
+      popupTextAddress.remove();
     }
 
     var popupTextPrice = cardElement.querySelector('.popup__text--price');
@@ -54,16 +54,16 @@
 
     var popupType = cardElement.querySelector('.popup__type');
     if (card.offer.type) {
-      popupType.textContent = window.form.housinTypes[card.offer.type].ru;
+      popupType.textContent = window.form.housingTypes[card.offer.type].ru;
     } else {
-       popupType.remove();
+      popupType.remove();
     }
 
     var popupTextCapacity = cardElement.querySelector('.popup__text--capacity');
     if (card.offer.rooms && card.offer.guests) {
       popupTextCapacity.textContent = card.offer.rooms + 'комнаты для' + card.offer.guests + 'гостей';
     } else {
-       popupTextCapacity.remove();
+      popupTextCapacity.remove();
     }
 
     var popupTextTime = cardElement.querySelector('.popup__text--time');
@@ -75,11 +75,12 @@
 
     var popupFeatures = cardElement.querySelector('.popup__features');
     var featureNodes = popupFeatures.querySelectorAll('.popup__feature');
-    for (var i = 0; i < featureNodes.length; i++) {
-      if (card.offer.features.indexOf(featureNodes[i].classList[1].replace('popup__feature--', '')) < 0) {
-        featureNodes[i].remove();
-      }
-    }
+    featureNodes.forEach(function (item) {
+      item.remove();
+    });
+
+    // if (card.offer.features.indexOf(featureNodes[i].classList[1].replace('popup__feature--', '')) < 0) {
+    //   featureNodes[i].remove();
 
     var popupDescription = cardElement.querySelector('.popup__description');
     if (card.offer.description) {
@@ -92,7 +93,7 @@
     var photo = popupPhotos.querySelector('img');
     if (card.offer.photos.length > 0) {
       photo.src = card.offer.photos[0];
-      for (i = 1; i < card.offer.photos.length; i++) {
+      for (var i = 1; i < card.offer.photos.length; i++) {
         var photoElement = photo.cloneNode(true);
         photoElement.src = card.offer.photos[i];
         popupPhotos.appendChild(photoElement);
