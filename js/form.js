@@ -8,13 +8,14 @@
   var pin = window.map.pin;
 
   var address = document.querySelector('input[name=address]');
+  var formFilters = map.querySelector('.map__filters');
   var formFields = document.querySelectorAll('fieldset, .map__filter');
-  var roomNumber = form.querySelector('#room_number');
+  var numberRooms = form.querySelector('#room_number');
   var capacity = form.querySelector('#capacity');
-  var timeIn = document.querySelector('#timein');
-  var timeOut = document.querySelector('#timeout');
-  var price = document.querySelector('#price');
-  var type = document.querySelector('#type');
+  var timeIn = form.querySelector('#timein');
+  var timeOut = form.querySelector('#timeout');
+  var price = form.querySelector('#price');
+  var type = form.querySelector('#type');
   var resetButtonForm = form.querySelector('.ad-form__reset');
 
   var roomPersons = {
@@ -24,7 +25,7 @@
     '100': ['0']
   };
 
-  var typeTranslate = {
+  var housingTypes = {
     'palace': {
       ru: 'дворец', min: 10000
     },
@@ -41,24 +42,24 @@
 
   var setAddress = function () {
     if (map.classList.contains('map--faded')) {
-      address.value = Math.floor(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.floor(pin.offsetTop + (PIN_WIDTH / 2));
+      address.value = Math.round(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.round(pin.offsetTop + (PIN_WIDTH / 2));
     } else {
-      address.value = Math.floor(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.floor(pin.offsetTop + PIN_WIDTH);
+      address.value = Math.round(parseInt(pin.style.left, 10) + (PIN_WIDTH / 2)) + ',' + (parseInt(pin.style.top, 10) + PIN_WIDTH);
     }
   };
   setAddress();
 
   var setFormState = function () {
-    for (var i = 0; i < formFields.length; i++) {
-      formFields[i].disabled = !formFields[i].disabled;
-    }
+    formFields.forEach(function (item) {
+      item.disabled = !item.disabled;
+    });
   };
   setFormState();
 
-  var onRoomNumberChange = function () {
+  var onNumberRoomsChange = function () {
     if (capacity.options.length > 0) {
       [].forEach.call(capacity.options, function (item) {
-        var persons = roomPersons[roomNumber.value];
+        var persons = roomPersons[numberRooms.value];
         var isHidden = !(persons.indexOf(item.value) >= 0);
 
         item.selected = persons[0] === item.value;
@@ -67,9 +68,9 @@
       });
     }
   };
-  onRoomNumberChange();
+  onNumberRoomsChange();
 
-  roomNumber.addEventListener('change', onRoomNumberChange);
+  numberRooms.addEventListener('change', onNumberRoomsChange);
 
   timeIn.addEventListener('change', function (evt) {
     timeOut.value = evt.target.value;
@@ -79,18 +80,18 @@
     timeIn.value = evt.target.value;
   });
 
-  var onTypeChangeHandler = function (evt) {
-    var minPrice = typeTranslate[evt.target.value].min;
+  var onTypeChangePrice = function (evt) {
+    var minPrice = housingTypes[evt.target.value].min;
     price.placeholder = minPrice;
     price.min = minPrice;
   };
-  type.addEventListener('change', onTypeChangeHandler);
+  type.addEventListener('change', onTypeChangePrice);
 
   var onSuccess = function () {
     window.main.showSuccessMessage();
     form.reset();
     window.map.deactivate();
-    window.card.mapFilter.reset();
+    formFilters.reset();
     window.card.remove();
     window.pin.remove();
   };
@@ -108,7 +109,7 @@
     evt.preventDefault();
     form.reset();
     window.map.deactivate();
-    window.card.mapFilter.reset();
+    formFilters.reset();
     window.card.remove();
     window.pin.remove();
   };
@@ -116,8 +117,9 @@
   resetButtonForm.addEventListener('click', onButtonReset);
 
   window.form = {
+    PIN_WIDTH: PIN_WIDTH,
     setState: setFormState,
     setAddress: setAddress,
-    typeTranslate: typeTranslate
+    housingTypes: housingTypes
   };
 })();
