@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var PIN_WIDTH = window.form.PIN_WIDTH;
+
   var outlineY = {
     MIN: 130,
     MAX: 630
@@ -11,25 +13,20 @@
     MAX: 1200
   };
 
-  var Pin = {
-    WIDTH: 65,
-    HEIGHT: 87
-  };
-
   var setPinPosition = function (shift) {
     var y = window.map.pin.offsetTop - shift.y;
     var x = window.map.pin.offsetLeft - shift.x;
 
     if (x < outlineX.MIN) {
       x = 1;
-    } else if (x > outlineX.MAX - Pin.WIDTH) {
-      x = outlineX.MAX - Pin.WIDTH;
+    } else if (x > outlineX.MAX - PIN_WIDTH) {
+      x = outlineX.MAX - PIN_WIDTH;
     }
 
-    if (y < outlineY.MIN - Pin.WIDTH) {
-      y = outlineY.MIN - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
-    } else if (y > outlineY.MAX - Pin.WIDTH) {
-      y = outlineY.MAX - Math.floor(Pin.HEIGHT - (Pin.WIDTH / 2));
+    if (y < outlineY.MIN - PIN_WIDTH) {
+      y = outlineY.MIN - PIN_WIDTH;
+    } else if (y > outlineY.MAX - PIN_WIDTH) {
+      y = outlineY.MAX - PIN_WIDTH;
     }
     window.map.pin.style.top = y + 'px';
     window.map.pin.style.left = x + 'px';

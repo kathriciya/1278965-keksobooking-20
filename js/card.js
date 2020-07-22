@@ -76,7 +76,9 @@
     var popupFeatures = cardElement.querySelector('.popup__features');
     var featureNodes = popupFeatures.querySelectorAll('.popup__feature');
     featureNodes.forEach(function (item) {
-      item.remove();
+      if (card.offer.features.indexOf(item.classList[1].replace('popup__feature--', '')) < 0) {
+        item.remove();
+      }
     });
 
     var popupDescription = cardElement.querySelector('.popup__description');

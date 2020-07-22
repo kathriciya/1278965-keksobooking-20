@@ -42,9 +42,9 @@
 
   var setAddress = function () {
     if (map.classList.contains('map--faded')) {
-      address.value = Math.floor(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.floor(pin.offsetTop + (PIN_WIDTH / 2));
+      address.value = Math.round(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.round(pin.offsetTop + (PIN_WIDTH / 2));
     } else {
-      address.value = Math.floor(pin.offsetLeft + (PIN_WIDTH / 2)) + ',' + Math.floor(pin.offsetTop + PIN_WIDTH);
+      address.value = Math.round(parseInt(pin.style.left, 10) + (PIN_WIDTH / 2)) + ',' + (parseInt(pin.style.top, 10) + PIN_WIDTH);
     }
   };
   setAddress();
@@ -117,6 +117,7 @@
   resetButtonForm.addEventListener('click', onButtonReset);
 
   window.form = {
+    PIN_WIDTH: PIN_WIDTH,
     setState: setFormState,
     setAddress: setAddress,
     housingTypes: housingTypes

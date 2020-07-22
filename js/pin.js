@@ -32,11 +32,10 @@
       var activePin = window.map.city.querySelector('.map__pin--active');
       if (activePin !== null) {
         activePin.classList.remove('map__pin--active');
-      } else {
-        pinElement.classList.add('map__pin--active');
-        window.card.remove();
-        window.card.render(pin);
       }
+      pinElement.classList.add('map__pin--active');
+      window.card.remove();
+      window.card.render(pin);
     });
 
     return pinElement;
